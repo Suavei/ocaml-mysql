@@ -1003,10 +1003,11 @@ void set_param_null(row_t *r, int index)
 void bind_result(row_t* r, int index)
 {
   MYSQL_BIND* bind = &r->bind[index];
+  static char buf[1024];
 
   bind->buffer_type = MYSQL_TYPE_STRING;
-  bind->buffer = 0;
-  bind->buffer_length = 0;
+  bind->buffer = buf;
+  bind->buffer_length = sizeof(buf);
   bind->is_null = &r->is_null[index];
   bind->length = &r->length[index];
   bind->error = &r->error[index];
